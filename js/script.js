@@ -60,7 +60,7 @@ allStudentsOutput();
 
 // ESERCIZIO 3
 
-// addStudent function on btn click
+// Dichiarazione variabili
 var addStudentBtn = $('#add-student-btn'),
     dataOutputNS = $('#new-students'),
     newStudent,
@@ -69,47 +69,7 @@ var addStudentBtn = $('#add-student-btn'),
     studentSurname,
     valid;
 
-addStudentBtn.click( function () {
-  valid = false;
-  while ( valid == false ) {
-    studentName = prompt("Student's name");
-    studentName = inputControl(studentName);
-  }
-  valid = false;
-  while ( valid == false ) {
-    studentSurname = prompt("Student's surname");
-    studentSurname = inputControl(studentSurname);
-  }
-  valid = false;
-  while ( valid == false ) {
-    studentAge = parseInt( prompt("Student's age") );
-    if ( isNaN( studentAge ) || studentAge < 6 || studentAge > 150 ) {
-      alert("Please enter a valid number")
-    } else {
-      valid = true;
-    }
-  }
-
-  newStudent = {
-    name: studentName,
-    surname: studentSurname,
-    age: studentAge
-  }
-
-  allStudents.push(newStudent);
-  allStudentsOutput();
-
-  dataOutputNS.append("<div class=\"margin-top\">");
-  for ( var key in newStudent ) {
-    dataOutputNS.append(
-      "<div>" + key + ": " + newStudent[key] + "</div>"
-    );
-  }
-  dataOutputNS.append("</div>");
-});
-
-
-
+// Dichiarazione funzione di controllo del testo
 function inputControl (word) {
 
   containsNumbers = false;
@@ -123,14 +83,58 @@ function inputControl (word) {
   }
   if ( containsNumbers == true ) {
     alert("Please do not enter numbers");
-  // Controllo se l' input è vuoto o contiene soltanto spazi
+    // Controllo se l' input è vuoto o contiene soltanto spazi
   } else if (word.length === 0 || !word.trim()) {
     alert("Please enter a word");
   } else {
-      // Funzione per rendere tutte le lettere minuscole e poi la prima maiuscola
-      word = word.toLowerCase();
-      word = word.charAt(0).toUpperCase() + word.slice(1);
-      valid = true;
-      return word;
+    // Funzione per rendere tutte le lettere minuscole e poi la prima maiuscola
+    word = word.toLowerCase();
+    word = word.charAt(0).toUpperCase() + word.slice(1);
+    valid = true;
+    return word;
   }
 }
+
+// onclick su Add inizia la funzione
+addStudentBtn.click( function () {
+  //Inserimento e controllo nome
+  valid = false;
+  while ( valid == false ) {
+    studentName = prompt("Student's name");
+    studentName = inputControl(studentName);
+  }
+  //Inserimento e controllo cognome
+  valid = false;
+  while ( valid == false ) {
+    studentSurname = prompt("Student's surname");
+    studentSurname = inputControl(studentSurname);
+  }
+  //Inserimento e controllo età
+  valid = false;
+  while ( valid == false ) {
+    studentAge = parseInt( prompt("Student's age") );
+    if ( isNaN( studentAge ) || studentAge < 6 || studentAge > 150 ) {
+      alert("Please enter a valid number")
+    } else {
+      valid = true;
+    }
+  }
+  // Creazione nuovo oggetto studente
+  newStudent = {
+    name: studentName,
+    surname: studentSurname,
+    age: studentAge
+  }
+  // L' oggetto viene aggiunto all' array contenente gli oggetti studente
+  allStudents.push(newStudent);
+  // Viene fatto un refresh dell' output html
+  allStudentsOutput();
+  // Output del nuovo studente con tutti i dati completi
+  dataOutputNS.append("<div class=\"margin-top\">");
+  for ( var key in newStudent ) {
+    dataOutputNS.append(
+      "<div>" + key + ": " + newStudent[key] + "</div>"
+    );
+  }
+  dataOutputNS.append("</div>");
+});
